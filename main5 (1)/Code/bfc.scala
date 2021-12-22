@@ -137,22 +137,22 @@ def run(prog: String, m: Mem = Map()) = {
  
 
 def jtable(pg: String) : Map[Int, Int] = {
-//  val start = pg.indexOf("[", 0)
-//  val end = pg.indexOf("]", 0) + 1
-//  if(end == -1) pg.length()
-//  Map(start-> end)
-//  val a = for(i <- 1 to 10) yield Map(i->i)
-////  else if (level == 0 && (end < start || start == -1)) end + 1
-////  else if (end < start || start == -1) jumpRight(prog, end + 1, level + 1)
-////  else jumpRight(prog, start + 1, level - 1)
-//  a.flatten.toMap
-//  val halfJ = jtable1(pg,0,Map[Int,Int]() )
-//  val halfJ2 = for((k,v) <- halfJ) yield v-1 -> (k.toInt+1)
-//  println("1: "+ halfJ)
-//  println("2: "+ halfJ2)
-//  val a = halfJ ++ halfJ2
-//  println(a)
-//  a
+  val start = pg.indexOf("[", 0)
+  val end = pg.indexOf("]", 0) + 1
+  if(end == -1) pg.length()
+  Map(start-> end)
+  val a = for(i <- 1 to 10) yield Map(i->i)
+  else if (level == 0 && (end < start || start == -1)) end + 1
+  else if (end < start || start == -1) jumpRight(prog, end + 1, level + 1)
+  else jumpRight(prog, start + 1, level - 1)
+  a.flatten.toMap
+  val halfJ = jtable1(pg,0,Map[Int,Int]() )
+  val halfJ2 = for((k,v) <- halfJ) yield v-1 -> (k.toInt+1)
+  println("1: "+ halfJ)
+  println("2: "+ halfJ2)
+  val a = halfJ ++ halfJ2
+  println(a)
+  a
   jj(pg,0,Map[Int, Int]())
 }
 
@@ -168,19 +168,19 @@ def jj(pg: String, pc: Int=0, mp:Map[Int, Int]) : Map[Int,Int] = {
 def jtable1(pg: String, pc: Int, mp:Map[Int, Int]) : Map[Int, Int] = {
   val open = pg.indexOf("[", pc)
   val close = pg.indexOf("]", pc) + 1
-  //println(mp)
+  println(mp)
   if(close == -1 || open == -1) mp else jtable1(pg,close,mp+(open -> close))
 
 }
 
-//println( jj("""+++++[->++++++++++<]>--<+++[->>++++++++++<<]>>++<<----------[+>.>.<+<]"""))
+println( jj("""+++++[->++++++++++<]>--<+++[->>++++++++++<<]>>++<<----------[+>.>.<+<]"""))
 // testcase
-//println( jtable("""+++++[->++++++++++<]>--<+++[->>++++++++++<<]>>++<<----------[+>.>.<+<]""") == Map(69 -> 61, 5 -> 20, 60 -> 70, 27 -> 44, 43 -> 28, 19 -> 6))
-// =>  Map(69 -> 61, 5 -> 20, 60 -> 70, 27 -> 44, 43 -> 28, 19 -> 6)
+println( jtable("""+++++[->++++++++++<]>--<+++[->>++++++++++<<]>>++<<----------[+>.>.<+<]""") == Map(69 -> 61, 5 -> 20, 60 -> 70, 27 -> 44, 43 -> 28, 19 -> 6))
+ =>  Map(69 -> 61, 5 -> 20, 60 -> 70, 27 -> 44, 43 -> 28, 19 -> 6)
 
 
 def compute2(pg: String, tb: Map[Int, Int], pc: Int, mp: Int, mem: Mem) : Mem = {
-  //println(tb)
+  println(tb)
   if (pc >= pg.length()) mem
   else pg.charAt(pc) match {
     case '>' => compute2(pg,tb, pc + 1, mp + 1, mem)
@@ -198,10 +198,10 @@ def compute2(pg: String, tb: Map[Int, Int], pc: Int, mp: Int, mem: Mem) : Mem = 
 def run2(pg: String, m: Mem = Map()) = {
   compute2(pg,jtable(pg) ,0,0,m )
 }
-//println( run2(load_bff("sierpinski.bf")))
+println( run2(load_bff("sierpinski.bf")))
 
 //testcase
-//println("run2: " + time_needed(1, run2(load_bff("benchmark.bf"))) )
+println("run2: " + time_needed(1, run2(load_bff("benchmark.bf"))) )
 
 
 
@@ -247,10 +247,10 @@ def run3( pg: String, m: Mem = Map() ) = {
 
 // testcases
 
-//println(optimise(load_bff("benchmark.bf")) )         // should have inserted 0's
-//println( optimise(load_bff("mandelbrot.bf")).length)  // => 11203
-//
-//println( "run3: " + time_needed(1, run3(load_bff("benchmark.bf"))) )
+println(optimise(load_bff("benchmark.bf")) )         // should have inserted 0's
+println( optimise(load_bff("mandelbrot.bf")).length)  // => 11203
+
+println( "run3: " + time_needed(1, run3(load_bff("benchmark.bf"))) )
 
 
 
@@ -276,30 +276,30 @@ def run3( pg: String, m: Mem = Map() ) = {
 //  appropriately with such two-character commands.
 
 
-//def combine(s: String) : String = {
-//  val plus = "[+]+".r.findAllIn(s).toList.distinct
-//  val ca = for( s <- plus) yield s.replaceAll( "", """\\\\""" ).substring(0,s.replaceAll( "", """\\\\""" ).length -2)
-//  val plus1 = Map("""+""" -> """+A""")
-//  println(plus1)
-////  println(ca)
-////  println( plus )
-////  for( p <- plus;
-////   q = s.replaceAllLiterally(p, p.length.toString )+"";
-////     s = q
-////  ) yield s
-//  println( "test" + s.replaceAllLiterally("""[+]+""", ("""$0"""). ) )
-//
-//
-////  val g = s.replaceAll("\\+", """\\+A""" )//.replaceAll("\\+\\+", "\\+B")
-////  println(g)
+def combine(s: String) : String = {
+ val plus = "[+]+".r.findAllIn(s).toList.distinct
+ val ca = for( s <- plus) yield s.replaceAll( "", """\\\\""" ).substring(0,s.replaceAll( "", """\\\\""" ).length -2)
+  val plus1 = Map("""+""" -> """+A""")
+  println(plus1)
+  println(ca)
+  println( plus )
+  for( p <- plus;
+   q = s.replaceAllLiterally(p, p.length.toString )+"";
+     s = q
+  ) yield s
+  println( "test" + s.replaceAllLiterally("""[+]+""", ("""$0"""). ) )
+
+
+  val g = s.replaceAll("\\+", """\\+A""" )//.replaceAll("\\+\\+", "\\+B")
+  println(g)
 ////  g
 //  ""
 //
 //}
 //
-//combine("""+,++,+++""")
+combine("""+,++,+++""")
 // testcase
-//combine(load_bff("benchmark.bf"))
+combine(load_bff("benchmark.bf"))
 
 def compute4(pg: String, tb: Map[Int, Int], pc: Int, mp: Int, mem: Mem) : Mem = {
   if (pc >= pg.length()) mem
@@ -322,13 +322,13 @@ def run4(pg: String, m: Mem = Map()) = {compute4(optimise(pg),jtable(optimise(pg
 
 
 // testcases
-//combine(optimise(load_bff("benchmark.bf"))) // => """>A+B[<A+M>A-A]<A[[....."""
+combine(optimise(load_bff("benchmark.bf"))) // => """>A+B[<A+M>A-A]<A[[....."""
 
-//println( time_needed(1, run4(load_bff("benchmark.bf"))) )
+println( time_needed(1, run4(load_bff("benchmark.bf"))) )
 
-//time_needed(1, run(load_bff("sierpinski.bf"))) 
-//time_needed(1, run4(load_bff("sierpinski.bf"))) 
+time_needed(1, run(load_bff("sierpinski.bf"))) 
+time_needed(1, run4(load_bff("sierpinski.bf"))) 
 
-//time_needed(1, run4(load_bff("mandelbrot.bf")))
+time_needed(1, run4(load_bff("mandelbrot.bf")))
 
 
