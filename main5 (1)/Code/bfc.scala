@@ -292,10 +292,10 @@ def combine(s: String) : String = {
 
   val g = s.replaceAll("\\+", """\\+A""" )//.replaceAll("\\+\\+", "\\+B")
   println(g)
-////  g
-//  ""
-//
-//}
+  g
+  ""
+
+}
 //
 combine("""+,++,+++""")
 // testcase
